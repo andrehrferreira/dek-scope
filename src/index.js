@@ -1,5 +1,7 @@
 //Global scope driver
 
+import path from "path";
+import globby from "globby";
 import _ from "lodash";
 
 var Scope = {};
@@ -42,3 +44,37 @@ Scope.use = function(obj) {
 
 export let $ = Scope;
 export default Scope;
+
+//Plugins
+export let plugins = async (pluginsPath) => {
+    const pluginsPathResolve = path.join(process.cwd(), pluginsPath);
+
+    return await globby([`${pluginsPathResolve}/index.js`, `${pluginsPathResolve}/**/index.js`]).then((paths) => {
+        paths.forEach(async (pluginPath) => {
+            var pluginRequest = require(path.resolve(pluginPath));
+
+            if(typeof pluginRequest == "function")
+                await pluginRequest();
+            else if(typeof pluginRequest.default == "function")
+                await pluginRequest.default();
+        });
+    });
+};
+
+//Controllers
+export let controllers = async (controllersPath) => {
+    const controllersPathResolve = path.join(process.cwd(), controllersPath);
+
+    return await globby([`${controllersPathResolve}/*.js`, `${controllersPathResolve}/**/*.js`]).then((paths) => {
+        paths.forEach(async (controllerPath) => {
+            var controllerRequest = require(path.resolve(controllerPath));
+
+            if(typeof controllerRequest == "function")
+                await controllerRequest();
+            else if(typeof controllerRequest.default == "function")
+                await controllerRequest.default();
+        });
+
+        return true;
+    });
+}
