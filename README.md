@@ -15,14 +15,14 @@ The scope has 3 basic functions, SET, GET and USE, and the last one receives an 
 ```js
 import { $ } from "@dekproject/scope";
 $.set("name", "Bob");
-console.log($.get("name"));
+console.log($.name);
 
 $.use({
     age: 26,
     email: "bob@gmail.com";
 });
 
-console.log($.get("name"), $.get("age"), $.get("email"));
+console.log($.name, $.age, $.email);
 ```
 
 ## Dev mode
@@ -58,11 +58,11 @@ imp();
 
 import.js
 ```js
-import { $ } from "@dekproject/scope";
+import { $, name } from "@dekproject/scope";
 
 export default () => {
     console.log("scope 2", $);
-    console.log("name", $.get("name"));
+    console.log("name", name);
 };
 ```
 
