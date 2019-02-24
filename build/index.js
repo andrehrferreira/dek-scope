@@ -71,7 +71,7 @@ var plugins = exports.plugins = function () {
                     case 0:
                         pluginsPathResolve = _path2.default.join(process.cwd(), pluginsPath);
                         _context2.next = 3;
-                        return (0, _globby2.default)([pluginsPathResolve + "/index.js", pluginsPathResolve + "/**/index.js"]).then(function (paths) {
+                        return (0, _globby2.default)([pluginsPathResolve + "/build/index.js", pluginsPathResolve + "/*/build/index.js"]).then(function (paths) {
                             paths.forEach(function () {
                                 var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(pluginPath) {
                                     var pluginRequest;
