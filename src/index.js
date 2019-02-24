@@ -23,10 +23,13 @@ Scope.set = function(name, value) {
             console.log(`${name} was replaced by the value ${value}`);
     } catch(e) { }
 
-    if(name !== "get" && name !== "set" && name !== "use")
+    if(name !== "get" && name !== "set" && name !== "use"){
         this[name] = value;
-    else
+        exports[name] = value;
+    }
+    else{
         console.log(`Do not use the names "get", "set" or "use"`);
+    }
 };
 
 Scope.use = function(obj) {
