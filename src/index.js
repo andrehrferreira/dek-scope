@@ -49,7 +49,7 @@ export default Scope;
 export let plugins = async (pluginsPath) => {
     const pluginsPathResolve = path.join(process.cwd(), pluginsPath);
 
-    return await globby([`${pluginsPathResolve}/index.js`, `${pluginsPathResolve}/**/index.js`]).then((paths) => {
+    return await globby([`${pluginsPathResolve}/build/index.js`, `${pluginsPathResolve}/*/build/index.js`]).then((paths) => {
         paths.forEach(async (pluginPath) => {
             var pluginRequest = require(path.resolve(pluginPath));
 
