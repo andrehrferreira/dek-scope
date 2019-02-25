@@ -42,6 +42,33 @@ Scope.use = function(obj) {
     }
 };
 
+Scope.wait = function(obj) {
+    var _this = this;
+
+    return new Promise(async (resolve, reject) => {
+        try{
+            if(typeof obj == "object"){
+                var pInterval = setInterval(() => {
+                    if(obj.every((key) => { return _this.hasOwnProperty(key); })){
+                        clearInterval(pInterval);
+                        resolve();
+                    }
+                }, 100);
+            }
+            else if(typeof obj == "string"){
+                var pInterval = setInterval(() => {
+                    if(_this.hasOwnProperty(obj)){
+                        clearInterval(pInterval);
+                        resolve();
+                    }
+                }, 100);
+            }
+        } catch(e){
+            reject(e.message);
+        }
+    });
+};
+
 export let $ = Scope;
 export default Scope;
 

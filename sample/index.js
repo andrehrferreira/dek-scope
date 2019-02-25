@@ -5,5 +5,12 @@ import imp from "./import.js";
     console.log("scope 1", $);
 
     $.set("name", "Bob");
-    await imp();
+    console.log("name", $.name);
+
+    setTimeout(() => {
+        console.log("set age");
+        $.set("age", "29");
+    }, 3000);
+
+    $.wait(["name", "age"]).then(imp)
 })();
