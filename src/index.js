@@ -109,7 +109,7 @@ export let controllers = async (controllersPath) => {
             await globby([`${controllersPathResolve}/*.js`, `${controllersPathResolve}/**/*.js`]).then(async (paths) => {
                 paths.forEach(async (controllerPath) => {
                     if(process.env.DEBUG == 'true')
-                        console.log(`[ Controllers ] - Load ${pluginPath}`);
+                        console.log(`[ Controllers ] - Load ${controllerPath}`);
 
                     var controllerRequest = require(path.resolve(controllerPath));
 
