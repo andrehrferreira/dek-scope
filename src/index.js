@@ -47,34 +47,58 @@ export default Scope;
 
 //Plugins
 export let plugins = async (pluginsPath) => {
-    const pluginsPathResolve = path.join(process.cwd(), pluginsPath);
+    return new Promise(async (resolve, reject) => {
+        try{
+            const pluginsPathResolve = path.join(process.cwd(), pluginsPath);
 
-    return await globby([`${pluginsPathResolve}/build/index.js`, `${pluginsPathResolve}/*/build/index.js`]).then((paths) => {
-        paths.forEach(async (pluginPath) => {
-            var pluginRequest = require(path.resolve(pluginPath));
+            await globby([`${pluginsPathResolve}/build/index.js`, `${pluginsPathResolve}/*/build/index.js`]).then(async (paths) => {
+                await paths.forEach(async (pluginPath) => {
+                    if(process.env.DEBUG == 'true')
+                        console.log(`[ Plugins ] - Load ${pluginPath}`);
 
-            if(typeof pluginRequest == "function")
-                await pluginRequest();
-            else if(typeof pluginRequest.default == "function")
-                await pluginRequest.default();
-        });
+                    var pluginRequest = require(path.resolve(pluginPath));
+
+                    if(typeof pluginRequest == "function")
+                        await pluginRequest();
+                    else if(typeof pluginRequest.default == "function")
+                        await pluginRequest.default();
+                });
+
+                resolve();
+            });
+        } catch(e){
+            console.log(`[ Plugins ] - ${e.message}`);
+            reject();
+        }
     });
 };
 
 //Controllers
 export let controllers = async (controllersPath) => {
-    const controllersPathResolve = path.join(process.cwd(), controllersPath);
+    return new Promise(async (resolve, reject) => {
+        try{
+            const controllersPathResolve = path.join(process.cwd(), controllersPath);
 
-    return await globby([`${controllersPathResolve}/*.js`, `${controllersPathResolve}/**/*.js`]).then((paths) => {
-        paths.forEach(async (controllerPath) => {
-            var controllerRequest = require(path.resolve(controllerPath));
+            await globby([`${controllersPathResolve}/*.js`, `${controllersPathResolve}/**/*.js`]).then(async (paths) => {
+                paths.forEach(async (controllerPath) => {
+                    if(process.env.DEBUG == 'true')
+                        console.log(`[ Controllers ] - Load ${pluginPath}`);
 
-            if(typeof controllerRequest == "function")
-                await controllerRequest();
-            else if(typeof controllerRequest.default == "function")
-                await controllerRequest.default();
-        });
+                    var controllerRequest = require(path.resolve(controllerPath));
 
-        return true;
+                    if(typeof controllerRequest == "function")
+                        await controllerRequest();
+                    else if(typeof controllerRequest.default == "function")
+                        await controllerRequest.default();
+                });
+
+                resolve();
+            });
+        }
+        catch(e){
+            console.log(`[ Controllers ] - ${e.message}`);
+            reject();
+        }
     });
+
 }

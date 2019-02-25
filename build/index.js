@@ -63,68 +63,120 @@ exports.default = Scope;
 //Plugins
 
 var plugins = exports.plugins = function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(pluginsPath) {
-        var pluginsPathResolve;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(pluginsPath) {
+        return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
-                switch (_context2.prev = _context2.next) {
+                switch (_context4.prev = _context4.next) {
                     case 0:
-                        pluginsPathResolve = _path2.default.join(process.cwd(), pluginsPath);
-                        _context2.next = 3;
-                        return (0, _globby2.default)([pluginsPathResolve + "/build/index.js", pluginsPathResolve + "/*/build/index.js"]).then(function (paths) {
-                            paths.forEach(function () {
-                                var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(pluginPath) {
-                                    var pluginRequest;
-                                    return regeneratorRuntime.wrap(function _callee$(_context) {
-                                        while (1) {
-                                            switch (_context.prev = _context.next) {
-                                                case 0:
-                                                    pluginRequest = require(_path2.default.resolve(pluginPath));
+                        return _context4.abrupt("return", new Promise(function () {
+                            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(resolve, reject) {
+                                var pluginsPathResolve;
+                                return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                                    while (1) {
+                                        switch (_context3.prev = _context3.next) {
+                                            case 0:
+                                                _context3.prev = 0;
+                                                pluginsPathResolve = _path2.default.join(process.cwd(), pluginsPath);
+                                                _context3.next = 4;
+                                                return (0, _globby2.default)([pluginsPathResolve + "/build/index.js", pluginsPathResolve + "/*/build/index.js"]).then(function () {
+                                                    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(paths) {
+                                                        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                                                            while (1) {
+                                                                switch (_context2.prev = _context2.next) {
+                                                                    case 0:
+                                                                        _context2.next = 2;
+                                                                        return paths.forEach(function () {
+                                                                            var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(pluginPath) {
+                                                                                var pluginRequest;
+                                                                                return regeneratorRuntime.wrap(function _callee$(_context) {
+                                                                                    while (1) {
+                                                                                        switch (_context.prev = _context.next) {
+                                                                                            case 0:
+                                                                                                if (process.env.DEBUG == 'true') console.log("[ Plugins ] - Load " + pluginPath);
 
-                                                    if (!(typeof pluginRequest == "function")) {
-                                                        _context.next = 6;
-                                                        break;
-                                                    }
+                                                                                                pluginRequest = require(_path2.default.resolve(pluginPath));
 
-                                                    _context.next = 4;
-                                                    return pluginRequest();
+                                                                                                if (!(typeof pluginRequest == "function")) {
+                                                                                                    _context.next = 7;
+                                                                                                    break;
+                                                                                                }
 
-                                                case 4:
-                                                    _context.next = 9;
-                                                    break;
+                                                                                                _context.next = 5;
+                                                                                                return pluginRequest();
 
-                                                case 6:
-                                                    if (!(typeof pluginRequest.default == "function")) {
-                                                        _context.next = 9;
-                                                        break;
-                                                    }
+                                                                                            case 5:
+                                                                                                _context.next = 10;
+                                                                                                break;
 
-                                                    _context.next = 9;
-                                                    return pluginRequest.default();
+                                                                                            case 7:
+                                                                                                if (!(typeof pluginRequest.default == "function")) {
+                                                                                                    _context.next = 10;
+                                                                                                    break;
+                                                                                                }
 
-                                                case 9:
-                                                case "end":
-                                                    return _context.stop();
-                                            }
+                                                                                                _context.next = 10;
+                                                                                                return pluginRequest.default();
+
+                                                                                            case 10:
+                                                                                            case "end":
+                                                                                                return _context.stop();
+                                                                                        }
+                                                                                    }
+                                                                                }, _callee, undefined);
+                                                                            }));
+
+                                                                            return function (_x5) {
+                                                                                return _ref4.apply(this, arguments);
+                                                                            };
+                                                                        }());
+
+                                                                    case 2:
+
+                                                                        resolve();
+
+                                                                    case 3:
+                                                                    case "end":
+                                                                        return _context2.stop();
+                                                                }
+                                                            }
+                                                        }, _callee2, undefined);
+                                                    }));
+
+                                                    return function (_x4) {
+                                                        return _ref3.apply(this, arguments);
+                                                    };
+                                                }());
+
+                                            case 4:
+                                                _context3.next = 10;
+                                                break;
+
+                                            case 6:
+                                                _context3.prev = 6;
+                                                _context3.t0 = _context3["catch"](0);
+
+                                                console.log("[ Plugins ] - " + _context3.t0.message);
+                                                reject();
+
+                                            case 10:
+                                            case "end":
+                                                return _context3.stop();
                                         }
-                                    }, _callee, undefined);
-                                }));
+                                    }
+                                }, _callee3, undefined, [[0, 6]]);
+                            }));
 
-                                return function (_x2) {
-                                    return _ref2.apply(this, arguments);
-                                };
-                            }());
-                        });
+                            return function (_x2, _x3) {
+                                return _ref2.apply(this, arguments);
+                            };
+                        }()));
 
-                    case 3:
-                        return _context2.abrupt("return", _context2.sent);
-
-                    case 4:
+                    case 1:
                     case "end":
-                        return _context2.stop();
+                        return _context4.stop();
                 }
             }
-        }, _callee2, undefined);
+        }, _callee4, undefined);
     }));
 
     return function plugins(_x) {
@@ -134,74 +186,121 @@ var plugins = exports.plugins = function () {
 
 //Controllers
 var controllers = exports.controllers = function () {
-    var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(controllersPath) {
-        var controllersPathResolve;
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+    var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(controllersPath) {
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
             while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context8.prev = _context8.next) {
                     case 0:
-                        controllersPathResolve = _path2.default.join(process.cwd(), controllersPath);
-                        _context4.next = 3;
-                        return (0, _globby2.default)([controllersPathResolve + "/*.js", controllersPathResolve + "/**/*.js"]).then(function (paths) {
-                            paths.forEach(function () {
-                                var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(controllerPath) {
-                                    var controllerRequest;
-                                    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-                                        while (1) {
-                                            switch (_context3.prev = _context3.next) {
-                                                case 0:
-                                                    controllerRequest = require(_path2.default.resolve(controllerPath));
+                        return _context8.abrupt("return", new Promise(function () {
+                            var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(resolve, reject) {
+                                var controllersPathResolve;
+                                return regeneratorRuntime.wrap(function _callee7$(_context7) {
+                                    while (1) {
+                                        switch (_context7.prev = _context7.next) {
+                                            case 0:
+                                                _context7.prev = 0;
+                                                controllersPathResolve = _path2.default.join(process.cwd(), controllersPath);
+                                                _context7.next = 4;
+                                                return (0, _globby2.default)([controllersPathResolve + "/*.js", controllersPathResolve + "/**/*.js"]).then(function () {
+                                                    var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(paths) {
+                                                        return regeneratorRuntime.wrap(function _callee6$(_context6) {
+                                                            while (1) {
+                                                                switch (_context6.prev = _context6.next) {
+                                                                    case 0:
+                                                                        paths.forEach(function () {
+                                                                            var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(controllerPath) {
+                                                                                var controllerRequest;
+                                                                                return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                                                                                    while (1) {
+                                                                                        switch (_context5.prev = _context5.next) {
+                                                                                            case 0:
+                                                                                                if (process.env.DEBUG == 'true') console.log("[ Controllers ] - Load " + pluginPath);
 
-                                                    if (!(typeof controllerRequest == "function")) {
-                                                        _context3.next = 6;
-                                                        break;
-                                                    }
+                                                                                                controllerRequest = require(_path2.default.resolve(controllerPath));
 
-                                                    _context3.next = 4;
-                                                    return controllerRequest();
+                                                                                                if (!(typeof controllerRequest == "function")) {
+                                                                                                    _context5.next = 7;
+                                                                                                    break;
+                                                                                                }
 
-                                                case 4:
-                                                    _context3.next = 9;
-                                                    break;
+                                                                                                _context5.next = 5;
+                                                                                                return controllerRequest();
 
-                                                case 6:
-                                                    if (!(typeof controllerRequest.default == "function")) {
-                                                        _context3.next = 9;
-                                                        break;
-                                                    }
+                                                                                            case 5:
+                                                                                                _context5.next = 10;
+                                                                                                break;
 
-                                                    _context3.next = 9;
-                                                    return controllerRequest.default();
+                                                                                            case 7:
+                                                                                                if (!(typeof controllerRequest.default == "function")) {
+                                                                                                    _context5.next = 10;
+                                                                                                    break;
+                                                                                                }
 
-                                                case 9:
-                                                case "end":
-                                                    return _context3.stop();
-                                            }
+                                                                                                _context5.next = 10;
+                                                                                                return controllerRequest.default();
+
+                                                                                            case 10:
+                                                                                            case "end":
+                                                                                                return _context5.stop();
+                                                                                        }
+                                                                                    }
+                                                                                }, _callee5, undefined);
+                                                                            }));
+
+                                                                            return function (_x10) {
+                                                                                return _ref8.apply(this, arguments);
+                                                                            };
+                                                                        }());
+
+                                                                        resolve();
+
+                                                                    case 2:
+                                                                    case "end":
+                                                                        return _context6.stop();
+                                                                }
+                                                            }
+                                                        }, _callee6, undefined);
+                                                    }));
+
+                                                    return function (_x9) {
+                                                        return _ref7.apply(this, arguments);
+                                                    };
+                                                }());
+
+                                            case 4:
+                                                _context7.next = 10;
+                                                break;
+
+                                            case 6:
+                                                _context7.prev = 6;
+                                                _context7.t0 = _context7["catch"](0);
+
+                                                console.log("[ Controllers ] - " + _context7.t0.message);
+                                                reject();
+
+                                            case 10:
+                                            case "end":
+                                                return _context7.stop();
                                         }
-                                    }, _callee3, undefined);
-                                }));
+                                    }
+                                }, _callee7, undefined, [[0, 6]]);
+                            }));
 
-                                return function (_x4) {
-                                    return _ref4.apply(this, arguments);
-                                };
-                            }());
+                            return function (_x7, _x8) {
+                                return _ref6.apply(this, arguments);
+                            };
+                        }()));
 
-                            return true;
-                        });
-
-                    case 3:
-                        return _context4.abrupt("return", _context4.sent);
-
-                    case 4:
+                    case 1:
                     case "end":
-                        return _context4.stop();
+                        return _context8.stop();
                 }
             }
-        }, _callee4, undefined);
+        }, _callee8, undefined);
     }));
 
-    return function controllers(_x3) {
-        return _ref3.apply(this, arguments);
+    return function controllers(_x6) {
+        return _ref5.apply(this, arguments);
     };
 }();
 //# sourceMappingURL=index.js.map

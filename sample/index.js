@@ -1,7 +1,9 @@
 import { $ } from "../build/index.js";
 import imp from "./import.js";
 
-console.log("scope 1", $);
+(async () => {
+    console.log("scope 1", $);
 
-$.set("name", "Bob");
-imp();
+    $.set("name", "Bob");
+    await imp();
+})();
