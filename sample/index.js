@@ -10,7 +10,10 @@ import imp from "./import.js";
     setTimeout(() => {
         console.log("set age");
         $.set("age", "29");
-    }, 3000);
+    }, 2000);
 
-    $.wait(["name", "age"]).then(imp)
+    $.wait(["name", "age"], 5000).then(imp).catch((err) => {
+        console.log(err);
+        process.exit(1);
+    })
 })();

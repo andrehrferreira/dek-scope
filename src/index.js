@@ -42,8 +42,9 @@ Scope.use = function(obj) {
     }
 };
 
-Scope.wait = function(obj) {
+Scope.wait = function(obj, timeout) {
     var _this = this;
+    var waitTime = timeout || 3000;
 
     return new Promise(async (resolve, reject) => {
         try{
@@ -63,6 +64,10 @@ Scope.wait = function(obj) {
                     }
                 }, 100);
             }
+
+            setTimeout(() => {
+                reject("The wait timeout was reached without loading the dependencies", JSON.stringify(obj))
+            }, waitTime);
         } catch(e){
             reject(e.message);
         }

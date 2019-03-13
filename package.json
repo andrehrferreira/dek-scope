@@ -1,6 +1,6 @@
 {
     "name": "@dekproject/scope",
-    "version": "1.1.2",
+    "version": "1.1.3",
     "description": "Scope global driver",
     "main": "./build/index.js",
     "scripts": {

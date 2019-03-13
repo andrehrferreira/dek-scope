@@ -57,10 +57,11 @@ Scope.use = function (obj) {
     }
 };
 
-Scope.wait = function (obj) {
+Scope.wait = function (obj, timeout) {
     var _this3 = this;
 
     var _this = this;
+    var waitTime = timeout || 3000;
 
     return new Promise(function () {
         var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(resolve, reject) {
@@ -87,6 +88,10 @@ Scope.wait = function (obj) {
                                         }
                                     }, 100);
                                 }
+
+                                setTimeout(function () {
+                                    reject("The wait timeout was reached without loading the dependencies", JSON.stringify(obj));
+                                }, waitTime);
                             } catch (e) {
                                 reject(e.message);
                             }
