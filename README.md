@@ -25,20 +25,12 @@ $.use({
 console.log($.name, $.age, $.email);
 ```
 
-## Dev mode
-
-To perform changes and test in the module it will be necessary to install dependencies dev mode
-
-```bash
-$ npm i --save-dev
-```
-
 ## Build
 
 To make changes in code and buildar for testing use the command
 
 ```bash
-$ npm run build
+$ yarn build
 ```
 
 ## Sample
