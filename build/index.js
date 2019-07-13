@@ -125,7 +125,7 @@ var plugins = exports.plugins = function () {
                         _context4.prev = 0;
                         pluginsPathResolve = _path2.default.join(process.cwd(), pluginsPath);
                         _context4.next = 4;
-                        return (0, _globby2.default)([pluginsPathResolve + "/build/index.js", pluginsPathResolve + "/*/build/index.js"]).then(function () {
+                        return (0, _globby2.default)([pluginsPathResolve + "/index.js", pluginsPathResolve + "/build/index.js", pluginsPathResolve + "/*/build/index.js"]).then(function () {
                             var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(paths) {
                                 return regeneratorRuntime.wrap(function _callee3$(_context3) {
                                     while (1) {
