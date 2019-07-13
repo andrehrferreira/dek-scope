@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.controllers = exports.plugins = exports.$ = undefined;
+exports.map = exports.routes = exports.controllers = exports.plugins = exports.$ = undefined;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; //Global scope driver
 
@@ -15,9 +15,9 @@ var _globby = require("globby");
 
 var _globby2 = _interopRequireDefault(_globby);
 
-var _lodash = require("lodash");
+var _express = require("express");
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _express2 = _interopRequireDefault(_express);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -308,6 +308,76 @@ var controllers = exports.controllers = function () {
 
     return function controllers(_x6) {
         return _ref5.apply(this, arguments);
+    };
+}();
+
+//Routes
+var routes = exports.routes = function () {
+    var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(routesPath) {
+        var routesPathResolve, router;
+        return regeneratorRuntime.wrap(function _callee8$(_context8) {
+            while (1) {
+                switch (_context8.prev = _context8.next) {
+                    case 0:
+                        routesPathResolve = _path2.default.join(process.cwd(), routesPath);
+                        router = _express2.default.Router();
+                        _context8.next = 4;
+                        return (0, _globby2.default)([routesPathResolve + "/*.js", routesPathResolve + "/**/*.js"]).then(function (paths) {
+                            paths.forEach(function (routePath) {
+                                var routeRequest = require(_path2.default.resolve(routePath));
+
+                                if (typeof routeRequest == "function") routeRequest(router);else if (typeof routeRequest.default == "function") routeRequest.default(router);
+                            });
+
+                            return true;
+                        });
+
+                    case 4:
+                        return _context8.abrupt("return", router);
+
+                    case 5:
+                    case "end":
+                        return _context8.stop();
+                }
+            }
+        }, _callee8, undefined);
+    }));
+
+    return function routes(_x9) {
+        return _ref8.apply(this, arguments);
+    };
+}();
+
+//Maps
+var map = exports.map = function () {
+    var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(mapPath) {
+        var mapPathResolve;
+        return regeneratorRuntime.wrap(function _callee9$(_context9) {
+            while (1) {
+                switch (_context9.prev = _context9.next) {
+                    case 0:
+                        mapPathResolve = _path2.default.join(process.cwd(), mapPath);
+                        _context9.next = 3;
+                        return (0, _globby2.default)([mapPathResolve + "/*.js", mapPathResolve + "/**/*.js"]).then(function (paths) {
+                            paths.forEach(function (filePath) {
+                                var fileRequire = require(_path2.default.resolve(filePath));
+
+                                if (typeof fileRequire == "function") fileRequire();else if (typeof fileRequire.default == "function") fileRequire.default();
+                            });
+
+                            return true;
+                        });
+
+                    case 3:
+                    case "end":
+                        return _context9.stop();
+                }
+            }
+        }, _callee9, undefined);
+    }));
+
+    return function map(_x10) {
+        return _ref9.apply(this, arguments);
     };
 }();
 //# sourceMappingURL=index.js.map

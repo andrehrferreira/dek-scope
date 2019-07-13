@@ -2,7 +2,7 @@
 
 import path from "path";
 import globby from "globby";
-import _ from "lodash";
+import express from "express";
 
 var Scope = {};
 
@@ -122,4 +122,43 @@ export let controllers = async (controllersPath) => {
     catch(e){
         console.log(`[ Controllers ] - ${e.message}`);
     }
+}
+
+//Routes
+export let routes = async (routesPath) => {
+    const routesPathResolve = path.join(process.cwd(), routesPath);
+    const router = express.Router();
+
+    await globby([`${routesPathResolve}/*.js`, `${routesPathResolve}/**/*.js`]).then((paths) => {
+        paths.forEach((routePath) => {
+            var routeRequest = require(path.resolve(routePath));
+
+            if(typeof routeRequest == "function")
+                routeRequest(router);
+            else if(typeof routeRequest.default == "function")
+                routeRequest.default(router);
+        });
+
+        return true;
+    });
+
+    return router;
+}
+
+//Maps
+export let map = async (mapPath) => {
+    const mapPathResolve = path.join(process.cwd(), mapPath);
+
+    await globby([`${mapPathResolve}/*.js`, `${mapPathResolve}/**/*.js`]).then((paths) => {
+        paths.forEach((filePath) => {
+            let fileRequire = require(path.resolve(filePath));
+
+            if(typeof fileRequire == "function")
+                fileRequire();
+            else if(typeof fileRequire.default == "function")
+                fileRequire.default();
+        });
+
+        return true;
+    });
 }
