@@ -1,5 +1,7 @@
 # @dekproject/scope
 
+[![npm package](https://nodei.co/npm/@dekproject/scope.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/@dekproject/scope/)
+
 Scope global driver
 
 What does the CLI do?
@@ -91,36 +93,4 @@ To make changes in code and buildar for testing use the command
 
 ```bash
 $ yarn build
-```
-
-## Sample
-
-The attached example shows how it will be possible to configure a property in scope and how it becomes accessible in other imports:
-
-index.js
-```js
-import { $ } from "@dekproject/scope";
-import imp from "./import";
-
-console.log("scope 1", $);
-
-$.set("name", "Bob");
-imp();
-```
-
-import.js
-```js
-import { $, name } from "@dekproject/scope";
-
-export default () => {
-    console.log("scope 2", $);
-    console.log("name", name);
-};
-```
-
-Result
-```bash
-scope 1 { get: [Function], set: [Function], use: [Function] }
-scope 2 { get: [Function], set: [Function], use: [Function], name: 'Bob' }
-name Bob
 ```
