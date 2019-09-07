@@ -12,6 +12,14 @@ What does the CLI do?
 * Simple plugin importation
 * Imports controllers and routes
 
+## Instalation
+
+To install we recommend using the Yarn
+
+```bash
+$ yarn add @dekproject/scope --save
+```
+
 ## Functions
 
 The scope has 3 basic functions, SET, GET and USE, and the last one receives an object that will be incorporated
