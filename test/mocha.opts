@@ -1,0 +1,5 @@
+--require @babel/register
+--reporter spec
+--timeout 15000
+--bail
+--exit

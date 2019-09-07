@@ -4,72 +4,111 @@ import path from "path";
 import globby from "globby";
 import express from "express";
 
-var Scope = {};
+var Scope = { debug: false };
 
 Scope.get = function(name) {
     try{
         if(this.hasOwnProperty(name))
-            return this[name]
+            return this[name];
         else
             throw `${name} does not exist in scope`;
     }
     catch(e){
-        console.log(e.message);
+        if(this.debug)
+            console.log(e.message);
+
         return false;
     }
 };
 
 Scope.set = function(name, value) {
-    try{
-        if(this.hasOwnProperty(name))
-            console.log(`${name} was replaced by the value ${value}`);
-    } catch(e) { }
+    let restrictedNames = ["get", "set", "use", "wait", "map", "plugins", "controllers", "routes"]; 
 
-    if(name !== "get" && name !== "set" && name !== "use"){
+    if(restrictedNames.indexOf(name) === -1 && !restrictedNames.hasOwnProperty(name)){
+        try{
+            if(this.hasOwnProperty(name))
+                if(this.debug)
+                    console.log(`'${name}' was replaced by the value '${value}'`);
+        } catch(e) { 
+            if(this.debug)
+                console.log(e.message);
+        }
+
         this[name] = value;
         exports[name] = value;
+        return true;
     }
     else{
-        console.log(`Do not use the names "get", "set" or "use"`);
+        if(this.debug)
+            console.log(`Do not use the names: ${restrictedNames.join(", ")}`);
+
+        return false;
     }
 };
 
 Scope.use = function(obj) {
     if(typeof obj == "object"){
-        Object.keys(obj).forEach((key) => {
-            this[key] = obj[key];
-        });
+        let status = true;
+        const keys = Object.keys(obj);
+
+        for(let key in keys){
+            if(!this.set([keys[key]].toString(), obj[keys[key]]))
+                status = false;
+        }
+
+        return status;
+    }
+    else{
+        return false;
     }
 };
 
 Scope.wait = function(obj, timeout) {
-    var _this = this;
-    var waitTime = timeout || 3000;
+    let _this = this;
+    let waitTime = timeout || 3000;
+    let pInterval = null, pWaitTimeout = null;
 
     return new Promise(async (resolve, reject) => {
         try{
+            pWaitTimeout = setTimeout(() => {
+                if(pInterval)
+                    clearInterval(pInterval);
+
+                if(typeof obj == "object"){
+                    let unloadDependencies = obj.filter((key) => (!_this.hasOwnProperty(key)));
+                    reject(`The wait timeout was reached without loading the dependencies: ${unloadDependencies.join(", ")}`);
+                }
+                else if(typeof obj == "string"){
+                    reject(`The wait timeout was reached without loading the dependencies: ${obj}`);
+                }                
+            }, waitTime);
+
             if(typeof obj == "object"){
-                var pInterval = setInterval(() => {
+                pInterval = setInterval(() => {
                     if(obj.every((key) => { return _this.hasOwnProperty(key); })){
-                        clearInterval(pInterval);
+                        if(pInterval) clearInterval(pInterval);
+                        if(pWaitTimeout)  clearTimeout(pWaitTimeout);
+
                         resolve();
                     }
                 }, 100);
             }
             else if(typeof obj == "string"){
-                var pInterval = setInterval(() => {
+                pInterval = setInterval(() => {
                     if(_this.hasOwnProperty(obj)){
-                        clearInterval(pInterval);
+                        if(pInterval) clearInterval(pInterval);
+                        if(pWaitTimeout) clearTimeout(pWaitTimeout);
+
                         resolve();
                     }
                 }, 100);
             }
-
-            setTimeout(() => {
-                reject("The wait timeout was reached without loading the dependencies", JSON.stringify(obj))
-            }, waitTime);
-        } catch(e){
-            reject(e.message);
+            else{
+                reject("Dependencies must be 'object' or 'string'.");
+            }
+        } 
+        catch(e){
+            reject(e);
         }
     });
 };
@@ -84,7 +123,7 @@ export let plugins = async (pluginsPath) => {
 
         await globby([`${pluginsPathResolve}/index.js`, `${pluginsPathResolve}/build/index.js`, `${pluginsPathResolve}/*/build/index.js`]).then(async (paths) => {
             await paths.forEach(async (pluginPath) => {
-                if(process.env.DEBUG == 'true')
+                if(process.env.DEBUG == "true")
                     console.log(`[ Plugins ] - Load ${pluginPath}`);
 
                 var pluginRequest = require(path.resolve(pluginPath));
@@ -107,7 +146,7 @@ export let controllers = async (controllersPath) => {
 
         await globby([`${controllersPathResolve}/*.js`, `${controllersPathResolve}/**/*.js`]).then(async (paths) => {
             paths.forEach(async (controllerPath) => {
-                if(process.env.DEBUG == 'true')
+                if(process.env.DEBUG == "true")
                     console.log(`[ Controllers ] - Load ${controllerPath}`);
 
                 var controllerRequest = require(path.resolve(controllerPath));
@@ -122,7 +161,7 @@ export let controllers = async (controllersPath) => {
     catch(e){
         console.log(`[ Controllers ] - ${e.message}`);
     }
-}
+};
 
 //Routes
 export let routes = async (routesPath) => {
@@ -143,7 +182,7 @@ export let routes = async (routesPath) => {
     });
 
     return router;
-}
+};
 
 //Maps
 export let map = async (mapPath) => {
@@ -161,4 +200,4 @@ export let map = async (mapPath) => {
 
         return true;
     });
-}
+};

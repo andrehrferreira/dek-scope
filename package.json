@@ -1,11 +1,14 @@
 {
     "name": "@dekproject/scope",
-    "version": "1.2.1",
+    "version": "2.0.1",
     "description": "Scope global driver",
     "main": "./build/index.js",
     "scripts": {
-        "dev": "npm run build && babel-node sample --presets env",
-        "build": "babel src -s -D -d build --presets env"
+        "dev": "npm run build && babel-node sample --ignore test",
+        "build": "babel src -s -D -d build --ignore test",
+        "lint": "eslint '**/*.js'",
+        "lint:fix": "eslint '**/*.js' --fix",
+        "test": "mocha --opts test/mocha.opts test/*.test.js"
     },
     "repository": {
         "type": "git",
@@ -15,17 +18,24 @@
         "dek",
         "scope"
     ],
-    "author": "Andre Ferreira <andre@vigiadepreco.com.br>",
+    "author": "Andre Ferreira <andrehrf@gmail.com>",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/dekproject/scope/issues"
     },
     "homepage": "https://github.com/dekproject/scope#readme",
     "devDependencies": {
-        "babel-cli": "^6.26.0",
-        "babel-preset-env": "^1.7.0"
+        "@babel/cli": "^7.6.0",
+        "@babel/core": "^7.6.0",
+        "@babel/node": "^7.6.1",
+        "@babel/preset-env": "^7.6.0",
+        "babel-eslint": "^10.0.3",
+        "chai": "^4.2.0",
+        "eslint": "^6.3.0",
+        "mocha": "^6.2.0"
     },
     "dependencies": {
+        "@babel/polyfill": "^7.6.0",
         "express": "^4.17.1",
         "globby": "^9.0.0"
     }

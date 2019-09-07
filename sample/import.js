@@ -1,6 +1,6 @@
-import { $, name, age } from "../build/index.js";
+import { name, age } from "../build/index.js";
 
 export default () => {
-    console.log("scope 2", $);
-    console.log(name, age);
+    console.log("import after wait");
+    console.log("end:", name, age);
 };

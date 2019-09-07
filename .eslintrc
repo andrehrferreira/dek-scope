@@ -1,0 +1,27 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "allowImportExportEverywhere": true,
+        "codeFrame": true
+    },
+    "rules": {
+        "semi": ["error", "always"],
+        "quotes": ["error", "double"],
+        "no-prototype-builtins": 0,
+        "no-async-promise-executor": 0,
+        "no-case-declarations": 0,
+        "require-atomic-updates": 0
+    }
+}
