@@ -69,15 +69,16 @@ MONGO_DB=test
 ```
 
 ```js
+import express from "express";
 import dotenv from "dotenv";
-import { $, plugins } from "@dekproject/scope";
+import { $, plugins, routes } from "@dekproject/scope";
 
 (async () => {
     dotenv.config();
     await plugins("node_modules/@dekproject");
 
     $.wait(["mongoose"], 5000).then(() => {
-        console.log("Successfully loaded mongoose");
+        app.use(await routes("./routes"));
     }).catch((err) => {
         console.log(err);
         process.exit(1);
@@ -85,7 +86,38 @@ import { $, plugins } from "@dekproject/scope";
 })();
 ```
 
-### 
+models/user.js
+```js
+import mongoose from "mongoose";
+
+mongoose.model("User", new mongoose.Schema({
+    name: { type: String, required: true },
+    user: { type: String, required: true, index: true, unique: true },
+    pass: { type: String, required: true, trim: true },
+}, { collection: "users" }));
+```
+
+controllers/user.js
+```js
+import "../models/user";
+
+export let getUser = (req, res) => {
+    const User = mongoose.model("User");
+    User.findById(req.params.id, (err, user) => {
+        if(err) console.error(err);
+        else console.log(user);
+    });
+}
+```
+
+routes/user.js
+```js
+import { getUser } from "../controllers/user";
+
+export default async (router) => {
+    router.route("/user/:id").get(getUser);
+};
+```
 
 ## Build
 
