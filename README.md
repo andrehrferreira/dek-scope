@@ -1,7 +1,5 @@
 # @dekproject/scope
 
-[![npm package](https://nodei.co/npm/@dekproject/scope.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/@dekproject/scope/)
-
 Scope global driver
 
 What does the CLI do?
