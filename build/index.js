@@ -147,7 +147,7 @@ var plugins = /*#__PURE__*/function () {
             _context4.prev = 0;
             pluginsPathResolve = _path["default"].join(process.cwd(), pluginsPath);
             _context4.next = 4;
-            return (0, _globby["default"])(["".concat(pluginsPathResolve, "/index.js"), "".concat(pluginsPathResolve, "/build/index.js"), "".concat(pluginsPathResolve, "/*/build/index.js")]).then( /*#__PURE__*/function () {
+            return (0, _globby["default"])(["".concat(pluginsPathResolve, "/**/build/index.js")]).then( /*#__PURE__*/function () {
               var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(paths) {
                 return regeneratorRuntime.wrap(function _callee3$(_context3) {
                   while (1) {

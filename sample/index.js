@@ -9,7 +9,7 @@ setTimeout(() => {
     console.log("set age:", $.age);
 }, 2000);
 
-$.wait(["name", "age"], 5000).then(imp).catch((err) => {
+$.wait(["name", "age", "rsa"], 5000).then(imp).catch((err) => {
     console.log(err);
     process.exit(1);
 });
