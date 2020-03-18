@@ -1,6 +1,6 @@
 {
     "name": "@dekproject/scope",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "description": "Scope global driver",
     "main": "./build/index.js",
     "scripts": {
@@ -14,26 +14,37 @@
         "type": "git",
         "url": "https://github.com/dekproject/scope.git"
     },
-    "keywords": [ "dek", "scope" ],
+    "keywords": [
+        "dek",
+        "scope"
+    ],
     "author": "Andre Ferreira <andrehrf@gmail.com>",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/dekproject/scope/issues"
     },
     "homepage": "https://github.com/dekproject/scope#readme",
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run lint"
+        }
+    },
     "devDependencies": {
-        "@babel/cli": "^7.6.0",
-        "@babel/core": "^7.6.0",
-        "@babel/node": "^7.6.1",
-        "@babel/preset-env": "^7.6.0",
-        "babel-eslint": "^10.0.3",
+        "@babel/cli": "^7.8.4",
+        "@babel/core": "^7.8.7",
+        "@babel/node": "^7.8.7",
+        "@babel/preset-env": "^7.5.5",
+        "@babel/register": "^7.8.6",
+        "babel-eslint": "~10.1.0",
         "chai": "^4.2.0",
-        "eslint": "^6.3.0",
+        "dotenv": "^8.2.0",
+        "eslint": "~6.8.0",
+        "husky": "~4.2.3",
         "mocha": "^6.2.0"
     },
     "dependencies": {
-        "@babel/polyfill": "^7.6.0",
+        "@babel/polyfill": "^7.8.7",
         "express": "^4.17.1",
-        "globby": "^9.0.0"
+        "globby": "^11.0.0"
     }
 }

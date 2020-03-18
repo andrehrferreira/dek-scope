@@ -17,7 +17,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 var Scope = {
   debug: false
@@ -72,12 +72,8 @@ Scope.wait = function (obj, timeout) {
   var waitTime = timeout || 3000;
   var pInterval = null,
       pWaitTimeout = null;
-  return new Promise(
-  /*#__PURE__*/
-  function () {
-    var _ref = _asyncToGenerator(
-    /*#__PURE__*/
-    regeneratorRuntime.mark(function _callee(resolve, reject) {
+  return new Promise( /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(resolve, reject) {
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -141,12 +137,8 @@ var _default = Scope; //Plugins
 
 exports["default"] = _default;
 
-var plugins =
-/*#__PURE__*/
-function () {
-  var _ref2 = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee4(pluginsPath) {
+var plugins = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(pluginsPath) {
     var pluginsPathResolve;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
@@ -155,23 +147,15 @@ function () {
             _context4.prev = 0;
             pluginsPathResolve = _path["default"].join(process.cwd(), pluginsPath);
             _context4.next = 4;
-            return (0, _globby["default"])(["".concat(pluginsPathResolve, "/index.js"), "".concat(pluginsPathResolve, "/build/index.js"), "".concat(pluginsPathResolve, "/*/build/index.js")]).then(
-            /*#__PURE__*/
-            function () {
-              var _ref3 = _asyncToGenerator(
-              /*#__PURE__*/
-              regeneratorRuntime.mark(function _callee3(paths) {
+            return (0, _globby["default"])(["".concat(pluginsPathResolve, "/index.js"), "".concat(pluginsPathResolve, "/build/index.js"), "".concat(pluginsPathResolve, "/*/build/index.js")]).then( /*#__PURE__*/function () {
+              var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(paths) {
                 return regeneratorRuntime.wrap(function _callee3$(_context3) {
                   while (1) {
                     switch (_context3.prev = _context3.next) {
                       case 0:
                         _context3.next = 2;
-                        return paths.forEach(
-                        /*#__PURE__*/
-                        function () {
-                          var _ref4 = _asyncToGenerator(
-                          /*#__PURE__*/
-                          regeneratorRuntime.mark(function _callee2(pluginPath) {
+                        return paths.forEach( /*#__PURE__*/function () {
+                          var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(pluginPath) {
                             var pluginRequest;
                             return regeneratorRuntime.wrap(function _callee2$(_context2) {
                               while (1) {
@@ -252,12 +236,8 @@ function () {
 
 exports.plugins = plugins;
 
-var controllers =
-/*#__PURE__*/
-function () {
-  var _ref5 = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee7(controllersPath) {
+var controllers = /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7(controllersPath) {
     var controllersPathResolve;
     return regeneratorRuntime.wrap(function _callee7$(_context7) {
       while (1) {
@@ -266,22 +246,14 @@ function () {
             _context7.prev = 0;
             controllersPathResolve = _path["default"].join(process.cwd(), controllersPath);
             _context7.next = 4;
-            return (0, _globby["default"])(["".concat(controllersPathResolve, "/*.js"), "".concat(controllersPathResolve, "/**/*.js")]).then(
-            /*#__PURE__*/
-            function () {
-              var _ref6 = _asyncToGenerator(
-              /*#__PURE__*/
-              regeneratorRuntime.mark(function _callee6(paths) {
+            return (0, _globby["default"])(["".concat(controllersPathResolve, "/*.js"), "".concat(controllersPathResolve, "/**/*.js")]).then( /*#__PURE__*/function () {
+              var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(paths) {
                 return regeneratorRuntime.wrap(function _callee6$(_context6) {
                   while (1) {
                     switch (_context6.prev = _context6.next) {
                       case 0:
-                        paths.forEach(
-                        /*#__PURE__*/
-                        function () {
-                          var _ref7 = _asyncToGenerator(
-                          /*#__PURE__*/
-                          regeneratorRuntime.mark(function _callee5(controllerPath) {
+                        paths.forEach( /*#__PURE__*/function () {
+                          var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(controllerPath) {
                             var controllerRequest;
                             return regeneratorRuntime.wrap(function _callee5$(_context5) {
                               while (1) {
@@ -362,12 +334,8 @@ function () {
 
 exports.controllers = controllers;
 
-var routes =
-/*#__PURE__*/
-function () {
-  var _ref8 = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee8(routesPath) {
+var routes = /*#__PURE__*/function () {
+  var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(routesPath) {
     var routesPathResolve, router;
     return regeneratorRuntime.wrap(function _callee8$(_context8) {
       while (1) {
@@ -404,12 +372,8 @@ function () {
 
 exports.routes = routes;
 
-var map =
-/*#__PURE__*/
-function () {
-  var _ref9 = _asyncToGenerator(
-  /*#__PURE__*/
-  regeneratorRuntime.mark(function _callee9(mapPath) {
+var map = /*#__PURE__*/function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(mapPath) {
     var mapPathResolve;
     return regeneratorRuntime.wrap(function _callee9$(_context9) {
       while (1) {
