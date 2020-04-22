@@ -122,7 +122,7 @@ export let plugins = async (pluginsPath) => {
         const pluginsPathResolve = path.join(process.cwd(), pluginsPath);
 
         await globby([`${pluginsPathResolve}/**/build/index.js`]).then(async (paths) => {
-            await paths.forEach(async (pluginPath) => {
+            paths.forEach(async (pluginPath) => {
                 if(process.env.DEBUG == "true")
                     console.log(`[ Plugins ] - Load ${pluginPath}`);
 
@@ -131,7 +131,7 @@ export let plugins = async (pluginsPath) => {
                 if(typeof pluginRequest == "function")
                     await pluginRequest();
                 else if(typeof pluginRequest.default == "function")
-                    await pluginRequest.default();
+                    await pluginRequest.default();                
             });
         });
     } catch(e){
@@ -165,39 +165,51 @@ export let controllers = async (controllersPath) => {
 
 //Routes
 export let routes = async (routesPath) => {
-    const routesPathResolve = path.join(process.cwd(), routesPath);
-    const router = express.Router();
+    try{
+        const routesPathResolve = path.join(process.cwd(), routesPath);
+        const router = express.Router();
 
-    await globby([`${routesPathResolve}/*.js`, `${routesPathResolve}/**/*.js`]).then((paths) => {
-        paths.forEach((routePath) => {
-            var routeRequest = require(path.resolve(routePath));
+        await globby([`${routesPathResolve}/*.js`, `${routesPathResolve}/**/*.js`]).then((paths) => {
+            paths.forEach((routePath) => {
+                var routeRequest = require(path.resolve(routePath));
 
-            if(typeof routeRequest == "function")
-                routeRequest(router);
-            else if(typeof routeRequest.default == "function")
-                routeRequest.default(router);
+                if(typeof routeRequest == "function")
+                    routeRequest(router);
+                else if(typeof routeRequest.default == "function")
+                    routeRequest.default(router);
+            });
+
+            return true;
         });
 
-        return true;
-    });
-
-    return router;
+        return router;
+    }
+    catch(e){
+        console.log(`[ Routes ] - ${e.message}`);
+        throw e;
+    }
 };
 
 //Maps
 export let map = async (mapPath) => {
-    const mapPathResolve = path.join(process.cwd(), mapPath);
+    try{
+        const mapPathResolve = path.join(process.cwd(), mapPath);
 
-    await globby([`${mapPathResolve}/*.js`, `${mapPathResolve}/**/*.js`]).then((paths) => {
-        paths.forEach((filePath) => {
-            let fileRequire = require(path.resolve(filePath));
+        await globby([`${mapPathResolve}/*.js`, `${mapPathResolve}/**/*.js`]).then((paths) => {
+            paths.forEach((filePath) => {
+                let fileRequire = require(path.resolve(filePath));
 
-            if(typeof fileRequire == "function")
-                fileRequire();
-            else if(typeof fileRequire.default == "function")
-                fileRequire.default();
+                if(typeof fileRequire == "function")
+                    fileRequire();
+                else if(typeof fileRequire.default == "function")
+                    fileRequire.default();
+            });
+
+            return true;
         });
-
-        return true;
-    });
+    }
+    catch(e){
+        console.log(`[ Routes ] - ${e.message}`);
+        throw e;
+    }
 };

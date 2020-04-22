@@ -153,8 +153,7 @@ var plugins = /*#__PURE__*/function () {
                   while (1) {
                     switch (_context3.prev = _context3.next) {
                       case 0:
-                        _context3.next = 2;
-                        return paths.forEach( /*#__PURE__*/function () {
+                        paths.forEach( /*#__PURE__*/function () {
                           var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(pluginPath) {
                             var pluginRequest;
                             return regeneratorRuntime.wrap(function _callee2$(_context2) {
@@ -198,7 +197,7 @@ var plugins = /*#__PURE__*/function () {
                           };
                         }());
 
-                      case 2:
+                      case 1:
                       case "end":
                         return _context3.stop();
                     }
@@ -341,9 +340,10 @@ var routes = /*#__PURE__*/function () {
       while (1) {
         switch (_context8.prev = _context8.next) {
           case 0:
+            _context8.prev = 0;
             routesPathResolve = _path["default"].join(process.cwd(), routesPath);
             router = _express["default"].Router();
-            _context8.next = 4;
+            _context8.next = 5;
             return (0, _globby["default"])(["".concat(routesPathResolve, "/*.js"), "".concat(routesPathResolve, "/**/*.js")]).then(function (paths) {
               paths.forEach(function (routePath) {
                 var routeRequest = require(_path["default"].resolve(routePath));
@@ -353,15 +353,21 @@ var routes = /*#__PURE__*/function () {
               return true;
             });
 
-          case 4:
+          case 5:
             return _context8.abrupt("return", router);
 
-          case 5:
+          case 8:
+            _context8.prev = 8;
+            _context8.t0 = _context8["catch"](0);
+            console.log("[ Routes ] - ".concat(_context8.t0.message));
+            throw _context8.t0;
+
+          case 12:
           case "end":
             return _context8.stop();
         }
       }
-    }, _callee8);
+    }, _callee8, null, [[0, 8]]);
   }));
 
   return function routes(_x9) {
@@ -379,8 +385,9 @@ var map = /*#__PURE__*/function () {
       while (1) {
         switch (_context9.prev = _context9.next) {
           case 0:
+            _context9.prev = 0;
             mapPathResolve = _path["default"].join(process.cwd(), mapPath);
-            _context9.next = 3;
+            _context9.next = 4;
             return (0, _globby["default"])(["".concat(mapPathResolve, "/*.js"), "".concat(mapPathResolve, "/**/*.js")]).then(function (paths) {
               paths.forEach(function (filePath) {
                 var fileRequire = require(_path["default"].resolve(filePath));
@@ -390,12 +397,22 @@ var map = /*#__PURE__*/function () {
               return true;
             });
 
-          case 3:
+          case 4:
+            _context9.next = 10;
+            break;
+
+          case 6:
+            _context9.prev = 6;
+            _context9.t0 = _context9["catch"](0);
+            console.log("[ Routes ] - ".concat(_context9.t0.message));
+            throw _context9.t0;
+
+          case 10:
           case "end":
             return _context9.stop();
         }
       }
-    }, _callee9);
+    }, _callee9, null, [[0, 6]]);
   }));
 
   return function map(_x10) {
