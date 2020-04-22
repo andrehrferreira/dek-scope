@@ -96,7 +96,7 @@ models/user.js
 ```js
 import mongoose from "mongoose";
 
-mongoose.model("User", new mongoose.Schema({
+export default mongoose.model("User", new mongoose.Schema({
     name: { type: String, required: true },
     user: { type: String, required: true, index: true, unique: true },
     pass: { type: String, required: true, trim: true },
@@ -105,10 +105,9 @@ mongoose.model("User", new mongoose.Schema({
 
 controllers/user.js
 ```js
-import "../models/user";
+import User from "../models/user";
 
 export let getUser = (req, res) => {
-    const User = mongoose.model("User");
     User.findById(req.params.id, (err, user) => {
         if(err) console.error(err);
         else console.log(user);
