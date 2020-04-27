@@ -121,7 +121,7 @@ export let plugins = async (pluginsPath) => {
     try{
         const pluginsPathResolve = path.join(process.cwd(), pluginsPath);
 
-        await globby([`${pluginsPathResolve}/**/build/index.js`]).then(async (paths) => {
+        await globby([`${pluginsPathResolve}/**/build/index.js`, `${pluginsPathResolve}/index.js`]).then(async (paths) => {
             paths.forEach(async (pluginPath) => {
                 if(process.env.DEBUG == "true")
                     console.log(`[ Plugins ] - Load ${pluginPath}`);
